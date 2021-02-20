@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Rating = ({value, text, color}) => {
     return (
         <div className='rating'>
-             { [1, 2, 3, 4, 5].map(index => (
+             {/* { [1, 2, 3, 4, 5].map(index => (
                 <i 
                     style ={{color}}
                     className={ (value >= index) 
@@ -14,9 +14,9 @@ const Rating = ({value, text, color}) => {
                         : 'far fa-star')
                     }>
                 </i>
-            )) }
+            )) } */}
 
-            {/* <span>
+            <span>
                 <i style={{color}}
                     className={
                         value >= 1 
@@ -70,7 +70,7 @@ const Rating = ({value, text, color}) => {
                         : 'far fa-star'
                     }
                 ></i>
-            </span> */}
+            </span>
             
             <span>{text && text}</span>
         </div>
