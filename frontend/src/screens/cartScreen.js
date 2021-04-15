@@ -26,7 +26,7 @@ const CartScreen = ({ match, location, history }) => {
     }
     
     const checkoutHandler = (id) => {
-        console.log("Checked-Out")
+        history.push('/login?redirect=shipping')
     }
 
     return (
