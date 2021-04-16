@@ -14,7 +14,8 @@ const orderSchema = mongoose.Schema({
             price: { type: Number, required: true},
             product: { 
                 type: mongoose.Schema.Types.ObjectId, 
-                required: true
+                required: true,
+                ref: 'Product'
             }
         }
     ],
@@ -25,6 +26,10 @@ const orderSchema = mongoose.Schema({
         country: { type: String, required: true},
     },
     paymentMethod: {
+        type: String,
+        required: true
+    },
+    paymentResult: {
         id: {type: String},
         status: {type: String},
         update_time: {type: String},
@@ -52,7 +57,6 @@ const orderSchema = mongoose.Schema({
     },
     paidAt: {
         type: Date,
-        required: true,
     },
     isDelivered: {
         type: Boolean,
@@ -61,7 +65,6 @@ const orderSchema = mongoose.Schema({
     },
     deliveredAt: {
         type: Date,
-        required: true,
     },
 
 },{
