@@ -9,6 +9,8 @@ import {
     ORDER_DETAILS_FAIL
 } from '../constants/orderConstants'
 
+import {logout} from './userActions'
+
 export const createOrder = (order) => async(dispatch, getState) => {
     try {
         dispatch({
@@ -64,12 +66,16 @@ export const getOrderDetails = (id) => async(dispatch, getState) => {
         })
   
     } catch (error) {
+        const message =
+            error.response && error.response.data.message 
+            ? error.response.data.message 
+            : error.message
+        if (message === 'Not authorized, token failed') {
+            dispatch(logout())
+        }
         dispatch ({
             type: ORDER_DETAILS_FAIL,
-            payload: 
-                error.response && error.response.data.message 
-                ? error.response.data.message 
-                : error.message
+            payload: message                
         })
     }
 }
