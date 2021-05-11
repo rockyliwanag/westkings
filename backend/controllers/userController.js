@@ -139,8 +139,6 @@ const deleteUser = asyncHandler(async (req, res,) => {
         res.status(404)
         throw new Error('User not found')
     }
-
-
 })
 
     // @desc Get user by ID
