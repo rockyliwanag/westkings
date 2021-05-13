@@ -5,6 +5,10 @@ import {
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
+    ORDER_SHIP_RESET,
+    ORDER_SHIP_FAIL,
+    ORDER_SHIP_SUCCESS,
+    ORDER_SHIP_REQUEST,
     ORDER_PAY_RESET,
     ORDER_PAY_FAIL,
     ORDER_PAY_SUCCESS,
@@ -80,6 +84,29 @@ export const orderPayReducer = (state = { loading: true, orderItems: [], shippin
                 error: action.payload
             }
         case ORDER_PAY_RESET:
+            return {}
+        default:
+            return state
+    }
+}
+
+export const orderShipReducer = (state = {}, action) => {
+    switch(action.type) {
+        case ORDER_SHIP_REQUEST:
+            return {
+                loading: true
+            }
+        case ORDER_SHIP_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+        case ORDER_SHIP_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case ORDER_SHIP_RESET:
             return {}
         default:
             return state
