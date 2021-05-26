@@ -20,6 +20,11 @@ const userSchema = mongoose.Schema({
         required: true,
         default: false
     },
+    itemsOrdered: {
+        type: mongoose.Schema.Types.ObjectId, 
+        required: false,
+        ref: 'Product'
+    }
 
 
 },{

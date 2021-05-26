@@ -5,21 +5,42 @@ import { Row, Col, Image, ListGroup, Card, Button, ListGroupItem, Form } from 'r
 import Rating from '../components/Rating'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listProductDetails } from '../actions/productActions'
+// import ProductReview from '../components/ProductReview'
+import { listProductDetails, createProductReview } from '../actions/productActions'
+import { listMyOrders } from '../actions/orderActions'
+// import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
 const ProductScreen = ({ match, history }) => {
     const [qty, setQty] = useState(1)
+    const [rating, setRating] = useState(0)
+    const [comment, setComment] = useState('')
+
     const dispatch = useDispatch()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const orderListMy = useSelector(state => state.orderListMy)
+    const { orders } = orderListMy
+
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
     
+    const productReviewCreate = useSelector(state => state.productReviewCreate)
+    const { loading: loadingProductReview, error: errorProductReview } = productReviewCreate
+    
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
+        dispatch(listMyOrders(match.params.id))
+
     }, [dispatch, match])
 
     const addToCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
-        console.log("Added")
+    }
+
+    const submitHandler = () => {
+
     }
 
     return (
@@ -28,6 +49,7 @@ const ProductScreen = ({ match, history }) => {
                 Go Back
             </Link>
             {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
+                <>
                 <Row>
                     <Col md={6}>
                         <Image src={product.image} alt={product.name} fluid />
@@ -56,6 +78,7 @@ const ProductScreen = ({ match, history }) => {
                             <ListGroup variant='flush'>
                                 <ListGroupItem>
                                     <Row>
+                                        <Col>Price: </Col>
                                         <Col>
                                         <strong>${product.price}</strong></Col>
                                     </Row>
@@ -99,12 +122,54 @@ const ProductScreen = ({ match, history }) => {
                                         Add To Cart
                                     </Button>
                                 </ListGroupItem>
-                                
-                                
                             </ListGroup>
                         </Card>
                     </Col>
                 </Row>
+                <Row>
+                    <Col md={6}>
+                        {/* <ProductReview /> */}
+                        <h2>Reviews</h2>
+                        {product.reviews.length === 0 && <Message>No Reviews</Message>}
+                        <ListGroup variant='flush'>
+                            {product.reviews.map( review => {
+                                <ListGroup.Item key={review._id}>
+                                    <strong>{review.name}</strong>
+                                    <Rating value={review.rating} />
+                                    <p>{review.createdAt.substring(0, 10)}</p>
+                                    <p>{review.comment}</p>
+                                </ListGroup.Item>
+                            })}
+                                <ListGroup.Item>
+                                    <h2>Write a Customer Review</h2>
+                                    {console.log('USER: ',userInfo, 'ORDER: ', orders)}
+                                    {userInfo ? (
+                                        <Form onSubmit={submitHandler}> /* If order is paid and the ordered item matches item id, then show review form. If not, item needs to be purchased to leave a review.*/
+                                            <Form.Group controlId='rating'>
+                                                <Form.Label>Rating</Form.Label>
+                                                <Form.Control as='select' value={rating} onChange={(e) => setRating(e.target.value)}>
+                                                    <option value=''>Select...</option>
+                                                    <option value='1'>1 - Poor</option>
+                                                    <option value='2'>2 - Fair</option>
+                                                    <option value='3'>3 - Good</option>
+                                                    <option value='4'>4 - Very Good</option>
+                                                    <option value='5'>5 - Excellent</option>
+                                                </Form.Control>
+                                            </Form.Group>
+                                            <Form.Group controlId='comment'>
+                                                <Form.Label>Comment</Form.Label>
+                                            </Form.Group>
+                                        </Form>
+                                    ) : (
+                                        <Message>
+                                            Please <Link to='/login'>sign in</Link> to write a review
+                                        </Message>
+                                    )}
+                                </ListGroup.Item>
+                        </ListGroup>
+                    </Col>
+                </Row>
+                </>
             )}
         </div>
     )
