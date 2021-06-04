@@ -37,8 +37,8 @@ const ProductScreen = ({ match, history }) => {
             setComment('')
             dispatch({ type: PRODUCT_CREATE_REVIEW_RESET})
         }
-        dispatch(listProductDetails(match.params.id))
         dispatch(listMyOrders(match.params.id))
+        dispatch(listProductDetails(match.params.id))
 
     }, [dispatch, match, successProductReview])
 
@@ -53,6 +53,8 @@ const ProductScreen = ({ match, history }) => {
             comment
         }))
     }
+
+   
 
     return (
         <div>
@@ -172,7 +174,7 @@ const ProductScreen = ({ match, history }) => {
                                             </Form.Group>
                                             <Form.Group controlId='comment'>
                                                 <Form.Label>Comment</Form.Label>
-                                                <Form.Control as='textArea' row='10' value={comment} onChange={(e) => setComment(e.target.value)}>
+                                                <Form.Control as='textarea' row='10' value={comment} onChange={(e) => setComment(e.target.value)}>
                                                 </Form.Control>
                                             </Form.Group>
                                             <Button type='submit' variant='primary'>Submit</Button>
