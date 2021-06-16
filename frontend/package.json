@@ -49,5 +49,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "svg-react-loader": "^0.4.6"
+  }
 }

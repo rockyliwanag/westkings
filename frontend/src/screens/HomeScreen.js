@@ -6,6 +6,7 @@ import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
+import cat from '../sr-logo-anim.svg'
 
 const HomeScreen = ({match}) => {
 
@@ -27,11 +28,13 @@ const HomeScreen = ({match}) => {
             <h1>Latest Products</h1>
             {loading ? (
                 <Loader />
-            ) : error ? (
-                <Message variant='danger'>{error}</Message>
-            ) : (
-                <>
+                ) : error ? (
+                    <Message variant='danger'>{error}</Message>
+                    ) : (
+                        <>
                     <Row>
+
+                        <object type="image/svg+xml" data={cat}>svg-animation</object>
                         {products.map( product => (
                             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                                 <Product product={product} />
