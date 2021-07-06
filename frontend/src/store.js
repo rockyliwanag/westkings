@@ -1,35 +1,36 @@
-import { 
-    createStore, 
-    combineReducers, 
-    applyMiddleware 
+import {
+    createStore,
+    combineReducers,
+    applyMiddleware
 } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { 
-    productListReducer, 
-    productDetailsReducer, 
-    productDeleteReducer, 
-    productCreateReducer, 
+import {
+    productListReducer,
+    productDetailsReducer,
+    productDeleteReducer,
+    productCreateReducer,
     productUpdateReducer,
-    productReviewCreateReducer
+    productReviewCreateReducer,
+    productTopRatedReducer
 } from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
-import { 
-    orderCreateReducer, 
-    orderDetailsReducer, 
-    orderListMyReducer, 
-    orderListReducer, 
+import {
+    orderCreateReducer,
+    orderDetailsReducer,
+    orderListMyReducer,
+    orderListReducer,
     orderPayReducer,
-    orderShipReducer 
+    orderShipReducer
 } from './reducers/orderReducers'
-import { 
-    userDetailsReducer, 
-    userLoginReducer, 
-    userRegisterReducer, 
-    userUpdateProfileReducer, 
-    userListReducer, 
-    userDeleteReducer, 
-    userUpdateReducer 
+import {
+    userDetailsReducer,
+    userLoginReducer,
+    userRegisterReducer,
+    userUpdateProfileReducer,
+    userListReducer,
+    userDeleteReducer,
+    userUpdateReducer
 } from './reducers/userReducers'
 
 const reducer = combineReducers({
@@ -39,6 +40,7 @@ const reducer = combineReducers({
     productCreate: productCreateReducer,
     productReviewCreate: productReviewCreateReducer,
     productUpdate: productUpdateReducer,
+    productTopRated: productTopRatedReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
@@ -69,7 +71,7 @@ const middleware = [thunk]
 const store = createStore(
     reducer,
     initialState,
-    composeWithDevTools( applyMiddleware(...middleware))
+    composeWithDevTools(applyMiddleware(...middleware))
 )
 
 export default store
