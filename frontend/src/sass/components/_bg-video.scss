@@ -1,0 +1,64 @@
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.65;
+  &__content {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  &__logo {
+    position: relative;
+    width: 30rem;
+    margin: 0 auto;
+    line-height: 3;
+    text-align: center;
+    transform: translateY(-60px);
+    object {
+      animation-name: fadeToTop;
+      animation-duration: 3s;
+      animation-timing-function: ease-out;
+    }
+    span {
+      font-size: 50px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      letter-spacing: 1rem;
+      color: rgba(255, 255, 255, 0.856);
+      text-shadow: rgba(63, 63, 63, 0.568) 2px 2px 8px;
+      animation-name: fadeIn;
+      animation-duration: 4s;
+      animation-timing-function: ease-out;
+    }
+  }
+}
+
+@keyframes fadeToTop {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
